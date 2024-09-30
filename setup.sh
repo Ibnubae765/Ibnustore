@@ -629,8 +629,7 @@ else
 mkdir /usr/local/ddos
 fi
 clear
-echo "Banner /etc/banner.txt" >>/etc/ssh/sshd_config
-sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/banner.txt"@g' /etc/default/dropbear
+echo "Banner /etc/kyt.txt" >>/etc/ssh/sshd_config
 wget -O /etc/kyt.txt "${REPO}banner/issue.net"
 print_success "Fail2ban"
 }
