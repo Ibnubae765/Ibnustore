@@ -216,7 +216,7 @@ function base_package() {
 clear
 print_install "Menginstall Packet Yang Dibutuhkan"
 apt install at -y
-apt install zip pwgen openssl openvpn socat cron bash-completion -y
+apt install zip pwgen openssl socat cron bash-completion -y
 apt install figlet -y
 apt dist-upgrade -y
 apt install ntpdate -y
@@ -756,6 +756,11 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 0 5 * * * root /sbin/reboot
 END
+cat >/etc/cron.d/daily_bckp <<-END
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+1 * * * * root /usr/local/sbin/backer
+END
 echo "*/1 * * * * root echo -n > /var/log/nginx/access.log" >/etc/cron.d/log.nginx
 echo "*/1 * * * * root echo -n > /var/log/xray/access.log" >>/etc/cron.d/log.xray
 service cron restart
@@ -837,25 +842,6 @@ enable_services
 restart_system
 }
 instal
-NEW_FILE_MAX=65535
-NF_CONNTRACK_MAX="net.netfilter.nf_conntrack_max=262144"
-NF_CONNTRACK_TIMEOUT="net.netfilter.nf_conntrack_tcp_timeout_time_wait=30"
-SYSCTL_CONF="/etc/sysctl.conf"
-CURRENT_FILE_MAX=$(grep "^fs.file-max" "$SYSCTL_CONF" | awk '{print $3}' 2>/dev/null)
-if [ "$CURRENT_FILE_MAX" != "$NEW_FILE_MAX" ]; then
-    if grep -q "^fs.file-max" "$SYSCTL_CONF"; then
-        sed -i "s/^fs.file-max.*/fs.file-max = $NEW_FILE_MAX/" "$SYSCTL_CONF" >/dev/null 2>&1
-    else
-        echo "fs.file-max = $NEW_FILE_MAX" >> "$SYSCTL_CONF" 2>/dev/null
-    fi
-fi
-if ! grep -q "^net.netfilter.nf_conntrack_max" "$SYSCTL_CONF"; then
-    echo "$NF_CONNTRACK_MAX" >> "$SYSCTL_CONF" 2>/dev/null
-fi
-if ! grep -q "^net.netfilter.nf_conntrack_tcp_timeout_time_wait" "$SYSCTL_CONF"; then
-    echo "$NF_CONNTRACK_TIMEOUT" >> "$SYSCTL_CONF" 2>/dev/null
-fi
-sysctl -p >/dev/null 2>&1
 echo ""
 history -c
 rm -rf /root/menu
