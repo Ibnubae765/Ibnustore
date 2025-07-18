@@ -216,7 +216,7 @@ function base_package() {
 clear
 print_install "Menginstall Packet Yang Dibutuhkan"
 apt install at -y
-apt install zip pwgen openssl socat cron bash-completion -y
+apt install zip pwgen openssl openvpn socat cron bash-completion -y
 apt install figlet -y
 apt dist-upgrade -y
 apt install ntpdate -y
