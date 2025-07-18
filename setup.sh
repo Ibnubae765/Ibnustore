@@ -50,14 +50,14 @@ os_version=$(grep -w ^VERSION_ID= /etc/os-release | cut -d= -f2 | tr -d '"')
 version_major=$(echo "$os_version" | cut -d. -f1)
 
 # Pengecekan OS dan Versi
-if [[ "$os_id" == "ubuntu" ]]; then
+if [[ "$os_id" == "Ubuntu" ]]; then
     if (( version_major <= 22 )); then
         echo -e "${OK} Your OS Is Supported ( ${green}${os_name}${NC} )"
     else
         echo -e "${EROR} Your OS Version Is Not Supported ( ${YELLOW}${os_name}${NC} )"
         exit 1
     fi
-elif [[ "$os_id" == "debian" ]]; then
+elif [[ "$os_id" == "Debian" ]]; then
     if (( version_major <= 11 )); then
         echo -e "${OK} Your OS Is Supported ( ${green}${os_name}${NC} )"
     else
