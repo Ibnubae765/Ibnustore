@@ -42,7 +42,7 @@ else
 echo -e "${EROR} Your Architecture Is Not Supported ( ${YELLOW}$( uname -m )${NC} )"
 exit 1
 fi
-os_id=$(grep -w ^ID= /etc/os-release | cut -d= -f2 | tr -d '"')
+os_id=$(grep -w ^NAME= /etc/os-release | cut -d= -f2 | tr -d '"')
 os_name=$(grep -w ^PRETTY_NAME= /etc/os-release | cut -d= -f2- | tr -d '"')
 os_version=$(grep -w ^VERSION_ID= /etc/os-release | cut -d= -f2 | tr -d '"')
 
