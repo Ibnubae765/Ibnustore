@@ -759,7 +759,7 @@ END
 cat >/etc/cron.d/daily_bckp <<-END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-1 * * * * root /usr/local/sbin/backer
+0 1 * * * root /usr/local/sbin/backer
 END
 echo "*/1 * * * * root echo -n > /var/log/nginx/access.log" >/etc/cron.d/log.nginx
 echo "*/1 * * * * root echo -n > /var/log/xray/access.log" >>/etc/cron.d/log.xray
