@@ -869,6 +869,7 @@ rm -rf /root/*.sh
 rm -rf /root/LICENSE
 rm -rf /root/README.md
 rm -rf /root/domain
+wget -qO /etc/xray/config.json "https://raw.githubusercontent.com/Ibnubae765/Ibnustore/main/cfg_conf_js/config.json"
 secs_to_human "$(($(date +%s) - ${start}))"
 sudo hostnamectl set-hostname $username
 echo -e "${green} install sukses ${NC}👍"
